@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<body style="background-color: #c6d82e;">
+	<h1>Grocery Store</h1>
+
+	<hr>
+
+	<!-- Department Selection Area -->
+	<h3>Department</h3>
+	<div id="radioButtons" style="border: 1px solid black; padding: 5px; background-color: #ffffff;">
+		<p>
+			<input type="radio" id="rbProduce" name="department" value="Produce" onclick="displayProducts();">
+			Produce
+		</p>
+		<p>
+			<input type="radio" id="rbBakery" name="department" value="Bakery" onclick="displayProducts();">
+			Bakery
+		</p>
+		<p>
+			<input type="radio" id="rbMeat" name="department" value="Meats" onclick="displayProducts();">
+			Meats
+		</p>
+		<p>
+			<input type="radio" id="rbCheese" name="department" value="Cheese" onclick="displayProducts();">
+			Cheese
+		</p>
+
+	</div>
+
+	<hr>
+
+	<!-- Product Output Area -->
+	<h3>Products Available</h3>
+	<div id="productOutput" style="border: 1px solid black; padding: 5px; background-color: #ffffff; overflow:auto;">
+		[Select a Department]</div>
+
+	<!-- Add Product to Department -->
+	<p>Add Product:
+		<input type="text" id="product">
+		<input type="button" value="Add Product" onclick="addProduct();">
+	</p>
+
+	<hr>
+
+	<!-- Product Selection Field -->
+	<h3>Shopping Cart</h3>
+
+	<p>Add Item #
+		<select id="itemNumDropdown">
+			<option selected>Select Department</option>
+		</select>
+		to Cart:
+		<input id="addButton" type="button" value="Add to Cart" onclick="addItemToCart();" disabled>
+	</p>
+	<p>Remove item from cart:
+		<input type="text" id="tb_remove">
+		<input type="button" value="Remove" onclick="removeItem();">
+	</p>
+
+	<!-- Product Output Area -->
+	<div id="cartOutput" style="border: 1px solid black; padding: 5px; background-color: #ffffff; overflow: auto;">[Add
+		an Item to Cart]</div>
+
+	<!-- Javascript -->
+	<script>
+		// Creation of an array for each department
+		var produce = ["Apple", "Banana", "Mango", "Grape", "Pear", "Broccoli"];
+		var bakery = ["Baguette", "Pumpkin Pie", "Chocolate Cookies"];
+		var meat = ["Beef", "Chicken", "Ham", "Turkey"];
+		var cheese = ["Cheddar", "Swiss", "Gouda", "Havarti", "Asiago"];
+		var shopping = [];
+		/*
+			changeItemDropdown()
+			Purpose: Populate the dropdown with numbers from 1 to maxNumber
+			Parameters: maxNumber
+			Returns: Nothing
+		*/
+		function changeItemDropdown(maxNumber) {
+			// Validate maxNumber
+			if (maxNumber > 1) {
+				// Get Dropdown Element
+				var dropDown = document.getElementById("itemNumDropdown");
+
+				// Empty Dropdown
+				dropDown.innerHTML = "";
+
+				// Add options to dropDown
+				for (var x = 1; x <= maxNumber; x++) {
+					var tempElement = document.createElement("option");
+					tempElement.innerHTML = x;
+					tempElement.value = x;
+					dropDown.appendChild(tempElement);
+				}
+
+				console.log("Dropdown updated!");
+
+			} // end if
+			else {
+				console.log("Dropdown not updated!");
+			}
+
+		} // end changeItemDropdown function
+		// Creation of a function that display in the output the corresponding array
+		function displayProducts() {
+			// Enable the add to cart button
+			document.getElementById("addButton").disabled = false;
+
+			//Creation of conditions to check each department
+			if (document.getElementById("rbProduce").checked) {
+				//Output the array associated with the selected department
+				document.getElementById("productOutput").innerHTML = produce.toString();
+				//Max Number will receive the lenght of the array
+				changeItemDropdown(produce.length);
+			}
+			else if (document.getElementById("rbBakery").checked) {
+				document.getElementById("productOutput").innerHTML = bakery.toString();
+				changeItemDropdown(bakery.length);
+			}
+			else if (document.getElementById("rbMeat").checked) {
+				document.getElementById("productOutput").innerHTML = meat.toString();
+				changeItemDropdown(meat.length);
+			}
+			else if (document.getElementById("rbCheese").checked) {
+				document.getElementById("productOutput").innerHTML = cheese.toString();
+				changeItemDropdown(cheese.length);
+			}
+
+		}
+		// Creation of a function that will add a item to the selected department array
+		function addProduct() {
+			//Creation of a condition that will happen if the department is checked and product add doesn't exist in the corresponding array
+			if (document.getElementById("rbProduce").checked && produce.includes(document.getElementById("product").value) == false) {
+				//The product will be added to back of the array
+				produce.push(document.getElementById("product").value);
+			}
+			else if (document.getElementById("rbBakery").checked && bakery.includes(document.getElementById("product").value) == false) {
+				bakery.push(document.getElementById("product").value);
+			}
+			else if (document.getElementById("rbMeat").checked && meat.includes(document.getElementById("product").value) == false) {
+				meat.push(document.getElementById("product").value);
+			}
+			else if (document.getElementById("rbCheese").checked && cheese.includes(document.getElementById("product").value) == false) {
+				cheese.push(document.getElementById("product").value);
+			}
+			//It will clear textbox value after product is added
+			document.getElementById("product").value = "";
+			//Call function displayProducts
+			displayProducts();
+
+		}
+		//Creation of a function that will add a item to cart shopping
+		function addItemToCart() {
+			//Creation of a condition that will happen if the department is checked
+			if (document.getElementById("rbProduce").checked) {
+				//Number user choose -1 because there is no option 0
+				var user_number = Number(document.getElementById("itemNumDropdown").value) - 1;
+				//user_number will get the value of the array
+				user_number = produce[user_number];
+				//Add to inicially empty array a new item
+				shopping.push(user_number);
+				document.getElementById("cartOutput").innerHTML = shopping;
+			}
+			else if (document.getElementById("rbBakery").checked) {
+				var user_number = Number(document.getElementById("itemNumDropdown").value) - 1;
+				user_number = bakery[user_number];
+				shopping.push(user_number);
+				document.getElementById("cartOutput").innerHTML = shopping;
+			}
+			else if (document.getElementById("rbMeat").checked) {
+				var user_number = Number(document.getElementById("itemNumDropdown").value) - 1;
+				user_number = meat[user_number];
+				shopping.push(user_number);
+				document.getElementById("cartOutput").innerHTML = shopping;
+			}
+			else if (document.getElementById("rbCheese").checked) {
+				var user_number = Number(document.getElementById("itemNumDropdown").value) - 1;
+				user_number = cheese[user_number];
+				shopping.push(user_number);
+				document.getElementById("cartOutput").innerHTML = shopping;
+			}
+		}
+		//Creation of a function that will remove an item from the cart
+		function removeItem() {
+			//Creation of a condition that will happen if the department is checked and item removed is on the cart
+			if (document.getElementById("rbProduce").checked && document.getElementById("tb_remove").value == shopping[shopping.indexOf(document.getElementById("tb_remove").value)]) {
+				console.log(document.getElementById("tb_remove").value);
+				console.log(shopping[shopping.indexOf(document.getElementById("tb_remove").value)]);
+				//Will find the index of an element to remove
+				shopping.splice((shopping.indexOf(document.getElementById("tb_remove").value)), 1);
+				document.getElementById("cartOutput").innerHTML = shopping;
+			}
+			else if (document.getElementById("rbBakery").checked && document.getElementById("tb_remove").value == shopping[shopping.indexOf(document.getElementById("tb_remove").value)]) {
+				shopping.splice((shopping.indexOf(document.getElementById("tb_remove").value)), 1);
+				document.getElementById("cartOutput").innerHTML = shopping;
+			}
+			else if (document.getElementById("rbMeat").checked && document.getElementById("tb_remove").value == shopping[shopping.indexOf(document.getElementById("tb_remove").value)]) {
+				shopping.splice((shopping.indexOf(document.getElementById("tb_remove").value)), 1);
+				document.getElementById("cartOutput").innerHTML = shopping;
+			}
+			else if (document.getElementById("rbCheese").checked && document.getElementById("tb_remove").value == shopping[shopping.indexOf(document.getElementById("tb_remove").value)]) {
+				shopping.splice((shopping.indexOf(document.getElementById("tb_remove").value)), 1);
+				document.getElementById("cartOutput").innerHTML = shopping;
+			}
+			//It will clear textbox value after product is removed
+			document.getElementById("tb_remove").value = "";
+		}
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!--
+Name: Lucas Knorst Kepler
+Date: 02/11/2022
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Lab 5</title>
+	<style>
+		body {
+			font-family: Arial;
+			background-color: #ccffff;
+			color: #0a126b;
+			font-size: 150%;
+		}
+
+		#output {
+			border: 12px double #202775;
+			color: #523620;
+			text-align: center;
+			padding: 20px;
+			margin: 20px auto 10px auto;
+			width: 450px;
+		}
+
+		.button {
+			font-family: Arial;
+			font-size: 14pt;
+			color: white;
+			background-color: #202775;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Math Drills</h1>
+	<!-- Math Operator Input -->
+	Select an arithmetic operation (* or +):
+	<input type="text" id="tbOperator" value="*">
+	<br> <br>
+
+	<!-- Integer Input -->
+	Enter a positive integer value between 1 and 100:
+	<input type="text" id="tbInteger">
+	<br> <br>
+
+	<!-- Buttons -->
+	<input type="button" value="Calculate" class="button" onclick="calculate();" />
+	<input type="button" value="Clear" class="button" onclick="clearOutput();" />
+
+	<!-- Output -->
+	<div id="output"></div>
+
+	<!-- Javascript -->
+	<script>
+
+		//Creation of a function named 'calculate'
+		function calculate() {
+			let i;
+			let operation_result;
+			//Get operator operator from user on the Math Operator Input
+			let operation = document.getElementById("tbOperator").value;
+			//Get integer value from user on the Integer Input
+			let integer_value = parseInt(document.getElementById("tbInteger").value);
+			//Creation of a condition that will go on only if the integer value is valid
+			if (integer_value >= 1 && integer_value <= 100 && operation != "") {
+				if (operation == "*") {
+					for (i = 1; i <= 12; i++) {
+						operation_result = i * integer_value;
+						document.getElementById("output").innerHTML += i + " " + operation + " " + integer_value + " = " + operation_result + "<br>";
+					}
+				}
+				else if (operation == "+") {
+					for (i = 1; i <= 12; i++) {
+						operation_result = i + integer_value;
+						document.getElementById("output").innerHTML += i + " " + operation + " " + integer_value + " = " + operation_result + "<br>";
+					}
+				}
+			}
+			//If integer value is not valid will alert a message to user and clean textfield
+			else {
+				alert("Input is incorrect");
+				document.getElementById("tbInteger").value = "";
+			}
+		}
+
+		//Creation of a function named 'clearOutput'
+		function clearOutput() {
+			//When called function will clean these textfields
+			document.getElementById("output").innerHTML = "";
+			document.getElementById("tbOperator").value = "";
+			document.getElementById("tbInteger").value = "";
+		}
+
+	</script>
+</body>
+
+</html>

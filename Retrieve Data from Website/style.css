@@ -1,0 +1,103 @@
+/* Body */
+body {
+    background-image: url('background.png');
+    background-size: cover;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    margin-top: 100px;
+    font-family:cursive;
+}
+/* Form */
+form {
+    border: 1px solid;
+    margin: 70px 500px;
+    padding: 30px;
+    background-color: white;
+}
+/* Style for form inputs */
+input[type="text"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* Style for form labels */
+  label {
+    display: inline;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+
+  /* Part1 */
+  .part1 {
+    display: flex;
+  }
+
+
+  /* Date */
+  .date {
+    border: 1px solid;
+    width: 30%;
+    padding: 20px 0px 20px 25px;
+  }
+  
+  /* Select pulldowns */
+  select {
+    width: 90%;
+    padding: 8px 0;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  /* Style for form buttons */
+  button {
+    background-color: orange;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  #retrieve {
+    height: 40px;
+    margin-left: 20px;
+  }
+  
+  /* Hover effect for form buttons */
+  button:hover {
+    background-color:rgb(255, 145, 0);
+  }
+  
+  /* Style for form container */
+  .container {
+    margin: auto;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style for form title */
+  h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+
+  #save_changes {
+    float: right;
+  }

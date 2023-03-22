@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<style>
+		body {
+			font-family: Arial;
+			color: #010211;
+			font-size: 125%;
+		}
+
+		.advisor {
+			width: 58%;
+			height: 300px;
+			background: #F8F8FF;
+			float: left;
+			padding: 1%;
+		}
+
+		.appointment {
+			width: 38%;
+			height: 300px;
+			background: #DCDCDC;
+			float: right;
+			padding: 1%;
+		}
+
+		input[type="button"] {
+			background-color: rgb(85, 85, 219);
+			border: none;
+			color: white;
+			padding: 12px 32px;
+			text-align: center;
+			display: inline-block;
+			font-size: 12px;
+			margin: 3px 2px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Appointment Booking</h1>
+	<hr>
+
+
+	<div class="advisor">
+		<!-- Counsellor informaiton -->
+		<div style="float:left; width:48%;">
+			<h2>Academic Advisors</h2>
+			<div id="advisorInfo">Advisor info here</div><br>
+
+			<input type="button" value="Next" onclick="nextAdvisor();">
+
+		</div>
+
+		<!-- Appointments available -->
+		<div style="float:right; width: 48%;">
+			<h2>Availability:</h2>
+			<div id="advisorTimes">Appointments here </div><br>
+
+		</div>
+	</div>
+	<div class="appointment">
+		<h2>Booked Appointments:</h2>
+		<div id="apptOutput">Appointment info here</div><br>
+		<input type="button" value="Next" onclick="nextAppoint();">
+	</div>
+
+	<!-- Booking form -->
+	<div>
+		<h2>Book an Appointment</h2>
+		Student Name: <input id="aptName" type="text"><br><br>
+		Appointment Time 24 hours (Enter time between 9 and 17):
+		<input id="aptTime" type="number"><br><br>
+		Type: <input id="aptService" type="text"><br><br>
+		<input type="button" value="Book" onclick="makeAppointmentt();">
+	</div>
+
+	<!-- Javascript here -->
+	<script>
+
+		var advisorObjects = [];
+		var appointmentObjects = [];
+		var availability;
+		var i = 0;
+		var j = 0;
+
+		//Creation of first constructor
+		function Advisor(firstName, lastName, appointment, services) {
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.appointment = appointment;
+			this.services = services;
+		}
+
+		for (; i <= 2; i++) {
+			if (i == 0) {
+				advisorObjects[i] = new Advisor("Paxten", "Aaronson", ["9", "10", "15", "16"], ["Resume", "Portfolio"]);
+			}
+			else if (i == 1) {
+				advisorObjects[i] = new Advisor("Quinn", "Sullivan", ["11", "15", "18", "17"], ["Withdrwals", "Interview"]);
+			}
+			else if (i == 2) {
+				advisorObjects[i] = new Advisor("Caden", "Clark", ["12", "13", "14", "17"], ["English Classes", "German Classes"]);
+			}
+		}
+
+		//Creation of second constructor 
+		function Appointment(advisorName, studentName, appointmentTime, serviceSelected) {
+			this.advisorName = advisorName;
+			this.studentName = studentName;
+			this.appointmentTime = appointmentTime;
+			this.serviceSelected = serviceSelected;
+		}
+
+		i = 0;
+		
+		//Creation of a function that displays the advisor's information
+		function displayAdvisor() {
+			var firstAdvisor = advisorObjects[i];
+			document.getElementById("advisorInfo").innerHTML = "First Name: " + firstAdvisor.firstName + "<br>" + "Last Name: " + firstAdvisor.lastName + "<br>" + "Services: " + firstAdvisor.services;
+			displayAvailability(advisorObjects);
+		}
+		displayAdvisor();
+
+		//Creation of a function that displays the advisor's time availability 
+		function displayAvailability(advisorObjects) {
+			var firstAdvisor = advisorObjects[i];
+			document.getElementById("advisorTimes").innerHTML = firstAdvisor.appointment[0] + ":00" + "<br>" + firstAdvisor.appointment[1] + ":00" + "<br>" + firstAdvisor.appointment[2] + ":00" + "<br>" + firstAdvisor.appointment[3] + ":00";
+		}
+
+		//Creation of a function that displays the appointment booked
+		function displayAppointment(Appointment) {
+			document.getElementById("apptOutput").innerHTML = "Advisor Name: " + Appointment.advisorName + "<br>" + "Student Name: " + Appointment.studentName + "<br>" + "Appointment Time: " + Appointment.appointmentTime + ":00" + "<br>" + "Service: " + Appointment.serviceSelected;
+		}
+
+		//Creation of a function that will make appointments
+		function makeAppointmentt() {
+			//New variables receives what the user types
+			var studentValue = document.getElementById("aptName").value;
+			var timeValue = document.getElementById("aptTime").value;
+			var serviceValue = document.getElementById("aptService").value;
+
+			//New variables receive strings appointment and services
+			var arrayAdvisor = advisorObjects[i].appointment;
+			var arrayAdvisor2 = advisorObjects[i].services;
+
+			//Creation of a condition that works if string has what user types, making it valid
+			if (arrayAdvisor.includes(timeValue) && arrayAdvisor2.includes(serviceValue)) {
+				alert("Valid appointment!");
+				var newAppointment = new Appointment(advisorObjects[i].firstName, studentValue, timeValue, serviceValue);
+				appointmentObjects.push(newAppointment);
+				displayAppointment(newAppointment);
+				console.log(arrayAdvisor);
+				var index = arrayAdvisor.indexOf(timeValue);
+				/*console.log(index);	
+				arrayAdvisor.splice(index, 1);
+				console.log(arrayAdvisor);
+				document.getElementById("advisorTimes").innerHTML;*/
+			}
+			else {
+				alert("Not a valid appointment.");
+			}
+
+			document.getElementById("aptName").value = "";
+			document.getElementById("aptTime").value = "";
+			document.getElementById("aptService").value = "";
+
+		}
+
+		//Creation of a function that show next Advisor on display
+		function nextAdvisor() {
+			i++;
+			if (i == 3) {
+				i = 0;
+			}
+			displayAdvisor(i);
+		}
+
+		//Creation of a function that shows next appointment on display
+		function nextAppoint() {
+			displayAppointment(appointmentObjects[j]);
+			j++;
+			if (j >= appointmentObjects.length) {
+				j = 0;
+			}
+		}
+
+
+
+
+
+
+
+
+
+	</script>
+
+</body>
+
+</html>

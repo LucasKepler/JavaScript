@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Final Test Part B</title>
+</head>
+<style>
+	h1 {
+		text-align: left;
+	}
+
+	body {
+		font-family: Verdana;
+		font-size: 100%;
+		background-color: #d8e7ff;
+	}
+
+	input[type=number] {
+		width: 40px;
+	}
+
+	.selection {
+		font-family: Verdana;
+		font-size: 11pt;
+		border: 1px solid #07A2FE;
+		color: black;
+		background-color: aliceblue;
+		height: 25px;
+		text-align: left;
+	}
+
+	.button {
+		font-family: Verdana;
+		background-color: aliceblue;
+		font-size: 12pt;
+		padding: 5px;
+	}
+
+	fieldset {
+		padding: 20px;
+	}
+
+	legend {
+		border: 1px solid black;
+		color: black;
+		font-size: 90%;
+		text-align: left;
+	}
+
+	.outputStyle {
+		color: #523620;
+		text-align: center;
+		margin: 20px 10px;
+		width: 550px;
+		height: auto
+	}
+</style>
+
+<body>
+	<h1>Customer Data</h1>
+
+	<!-- Registration Form -->
+	<div>
+		<fieldset>
+			<legend>New Customer Form</legend>
+			First name:
+			<input type="text" id="tbFirstName">
+			<br><br>
+			Last name:
+			<input type="text" id="tbLastName">
+			<br><br>
+			City:
+			<input type="text" id="tbCity">
+			Province:
+			<select id="ddProvince" class="selection">
+				<option>ON</option>
+				<option>BC</option>
+				<option>AB</option>
+				<option>SK</option>
+				<option>MB</option>
+				<option>QC</option>
+				<option>NB</option>
+				<option>NS</option>
+				<option>PE</option>
+				<option>NL</option>
+				<option>YT</option>
+				<option>NT</option>
+				<option>NU</option>
+			</select>
+			<br><br>
+			Age:
+			<input type="number" id="tbAge" />
+			Gender:
+			<select id="ddGender" class="selection">
+				<option>Male</option>
+				<option>Female</option>
+			</select>
+			<br /><br />
+			<input type="button" id="btnSubmit" value="Submit" class="button" onclick="registerCustomer();">
+		</fieldset>
+	</div>
+	<br><br>
+
+	<!-- Customer List -->
+	<div>
+		<fieldset>
+			<legend>Customers</legend>
+			<div id="divCustomerOutput" class="outputStyle">
+				[Customer List Here]
+			</div>
+		</fieldset>
+	</div>
+	<br><br>
+
+	<!-- Query Form -->
+	<div>
+		<fieldset>
+			<legend>Query</legend>
+			Gender:
+			<select id="ddQueryGender" class="selection">
+				<option>Male</option>
+				<option>Female</option>
+			</select>
+			Province:
+			<select id="ddQueryProvince" class="selection">
+				<option>ON</option>
+				<option>BC</option>
+				<option>AB</option>
+				<option>SK</option>
+				<option>MB</option>
+				<option>QC</option>
+				<option>NB</option>
+				<option>NS</option>
+				<option>PE</option>
+				<option>NL</option>
+				<option>YT</option>
+				<option>NT</option>
+				<option>NU</option>
+			</select>
+			Age:
+			<input type="number" id="tbQueryAge" value=18 />
+			&nbsp;
+			<input type="button" id="btnQuery" value="Query" class="button" onclick="queryData();" />
+			<hr>
+			<div id="divQueryOutput" class="outputStyle">[Query Output Here]</div>
+		</fieldset>
+	</div>
+
+	<!-- Javascript -->
+	<script>
+
+		//Global Variables
+		var customerArray = [];
+		var i = 0;
+
+		//CONSTRUCTORS:
+		/* 
+		Constructor for a customer object
+		*/
+		function Customer(firstName, lastName, city, province, age, gender) {
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.city = city;
+			this.province = province;
+			this.age = age;
+			this.gender = gender;
+			this.toString = function () {
+				return (firstName + " " + lastName + " is a " + age + " year old " + gender + " from " + city + ", " + province + "." + "<br>");
+			};
+		}
+
+		//FUNCTIONS:
+		/*
+		Function that creates the 5 sample customers and add them to the customerArray.
+		*/
+		function customerData() {
+			customerArray.push(new Customer("Jeff", "Smith", "London", "ON", 17, "Male"));
+			customerArray.push(new Customer("Pauline", "MacIntyre", "Sydney", "NS", 25, "Female"));
+			customerArray.push(new Customer("Kevin", "Firth", "London", "ON", 41, "Male"));
+			customerArray.push(new Customer("Carol", "Green", "London", "ON", 23, "Female"));
+			customerArray.push(new Customer("Lynda", "Reynolds", "Winnipeg", "MB", 37, "Female"));
+		}
+
+		/*
+		Function that displays customers to the "Customers" section of the web page.
+		*/
+		function displayCustomers() {
+			//Clear output
+			document.getElementById("divCustomerOutput").innerHTML = "";
+			//customerArray.string = 0;
+			for (i = 0; i < customerArray.length; i++) {
+				document.getElementById("divCustomerOutput").innerHTML += customerArray[i];
+			}
+		}
+
+		/*
+		Function that will create a customer object and populate with the input collected from the form.
+		*/
+		function registerCustomer() {
+			//Variables that will store the user input
+			let newFirstName = document.getElementById("tbFirstName").value;
+			let newLastName = document.getElementById("tbLastName").value;
+			let newCity = document.getElementById("tbCity").value;
+			let newProvince = document.getElementById("ddProvince").value;
+			let newAge = document.getElementById("tbAge").value;
+			let newGender = document.getElementById("ddGender").value;
+			//Add the Customer object to customerArray
+			customerArray.push(new Customer(newFirstName, newLastName, newCity, newProvince, newAge, newGender));
+			//Clear all the input
+			document.getElementById("tbFirstName").value = "";
+			document.getElementById("tbLastName").value = "";
+			document.getElementById("tbCity").value = "";
+			document.getElementById("tbAge").value = "";
+			document.getElementById("ddProvince").value = "ON";
+			document.getElementById("ddGender").value = "Male";
+			//Call function to output customers
+			displayCustomers();
+		}
+
+		/*
+		Function that will search the customerArray and output some information
+		*/
+		function queryData() {
+			//Counters
+			let counterGender = 0;
+			let counterAge = 0;
+			let counterProvince = 0;
+
+			//Variable storing user input
+			let genderSelection = document.getElementById("ddQueryGender").value;
+			let ageSelection = document.getElementById("tbQueryAge").value;
+			let provinceSelection = document.getElementById("ddQueryProvince").value;
+			ageSelection = Number(ageSelection);
+
+			for (i = 0; i < customerArray.length; i++) {
+				//Calculate how many of each gender
+				if (customerArray[i].gender == genderSelection) {
+					counterGender++
+				}
+				//Calculate how many of each province
+				if (customerArray[i].province == provinceSelection) {
+					counterProvince++
+				}
+				//Calculate how many 18 or older there are
+				if (customerArray[i].age >= ageSelection) {
+					counterAge++
+				}
+			}
+
+			//Clean output
+			document.getElementById("divQueryOutput").innerHTML = "";
+			document.getElementById("divQueryOutput").innerHTML = "Total number of customers: " + customerArray.length + "<br>" + "Number of customers living in " + provinceSelection + ": " + counterProvince + "<br>" + "Number of " + genderSelection + " customers: " + counterGender + "<br>" + "Number of customers " + ageSelection + " or older: " + counterAge;
+		}
+
+		/*
+		Page loads
+		*/
+		customerData();
+		displayCustomers();
+
+	</script>
+</body>
+
+</html>

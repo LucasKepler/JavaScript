@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=GFS+Didot&family=Lato:wght@300;400&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: rgb(253, 215, 0);
+}
+
+
+/* RESPONSIVE */
+    
+    /* MENU - NAVBAR */
+    li {
+        list-style: none;
+       }
+   
+    a {
+        text-decoration: none;
+     }
+
+     .logo {
+        width: 65px;
+     }
+   
+     .navbar {
+        min-height: 110px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 24px;
+        background-color: rgb(253, 215, 0);
+    }
+   
+   
+    .nav-link:hover {
+        color: white;
+        text-decoration: underline;
+    }
+   
+    .nav-menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 30px;
+        font-size: 22px;
+        margin-top: 40px;
+    }
+   
+    .nav-link {
+        transition: 0.7s ease;
+   
+    }
+   
+    .hamburger {
+        display: none;
+        cursor: pointer;
+    }
+   
+    .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        background-color: white;
+    } 
+
+    /* BODY */
+    body {
+        font-family: 'GFS Didot', serif;
+        padding: 0;
+        margin: 0;
+    }
+
+    h2 {
+        padding-top: 20px;
+        text-align: center;
+        color: white;
+    }
+
+    h1 {
+        font-family: 'GFS Didot', serif;
+        font-size: 50px;
+        -webkit-text-stroke-color: rgb(253, 215, 0);
+        -webkit-text-fill-color: rgb(253, 215, 0);
+        margin-top: 50px;
+        padding: 10px;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.5em;
+    }
+
+    /* FOOTER */
+
+    footer {
+        color: white;
+        font-weight: 100;
+        background-color: black;
+        font-size: 20px;
+        clear: both;
+
+    }
+
+    /*Footer help button*/
+
+    footer .help{
+        position: relative;
+        padding: 20px;
+    }
+
+    footer .help img{
+        position: absolute;right:0;
+        margin-right: 14px;
+        height: 25px;
+        margin-bottom:16px;
+    }
+
+    /*Footer about button*/
+    footer .about{
+        position: relative;
+        padding: 20px;
+    }
+
+    footer .about img{
+        position: absolute;right:0;
+        margin-right: 14px;
+        height: 25px;
+        margin-bottom:16px;
+    }
+
+    /*Footer for social medias*/
+    footer .socialmedia{
+        padding: 15px;
+    }
+
+    footer .socialmediaword{
+        margin-bottom: 20px;
+    }
+
+    footer .socialmedia .facebook{
+    float: left;
+    margin-right: 20px;
+    }
+
+    footer .socialmedia .facebook img{
+        height: 30px;
+    }
+
+    footer .socialmedia .instagram{
+        float: left;
+        margin-right: 20px;
+    }
+
+    footer .socialmedia .instagram img{
+        height: 30px;
+    }
+
+    footer .socialmedia .youtube img{
+        height: 30px;
+        margin-right: 20px;
+    }
+
+    /*Footer for copyright*/
+    footer .copyright{
+        padding: 10px 10px ;
+    }
+
+     
+        /* MAIN PAGE - SHOPPING */
+
+        main.main_shopping{
+            padding: 70px;
+        }
+
+        main .bag {
+            text-align: center;
+        }
+
+        main .bag h1{
+            margin-top:0;
+        }
+
+
+ 
+        /* MAIN PAGE - WORLD CUP QATAR */
+        .currencyFlag {
+            width: 12px;
+            padding-top: 5px;
+        }
+  
+
+
+/*MOBILE DESIGN 580px */
+
+@media(max-width:580px) {
+
+    /* MENU - NAVBAR */
+
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        gap: 0;
+        flex-direction: column;
+        background-color: rgb(253, 215, 0);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .nav-item {
+        margin: 16px 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
